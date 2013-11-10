@@ -1,0 +1,29 @@
+{
+  "name": "chrisalvares.com",
+  "version": "1.0.0",
+  "homepage": "https://github.com/ChrisAlvares/chrisalvares.com",
+  "authors": [
+    "Chris Alvares <mail@chrisalvares.com>"
+  ],
+  "description": "My Personal Website",
+  "main": "./javascript/main.js",
+  "license": "MIT",
+  "private": true,
+  "directory" : "public/components",
+  "dependencies": {
+      "jquery":"latest",
+      "jquery-ui":"latest",
+      "requirejs":"latest",
+      "requirejs-text":"latest",
+      "requirejs-plugins":"latest",
+      "bootstrap":"~3.0",
+      "underscore":"latest"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
