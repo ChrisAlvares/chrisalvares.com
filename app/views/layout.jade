@@ -1,9 +1,13 @@
 doctype 5
 html
   head
-    title= title
+    title A personal, personal website by Chris Alvares
+    link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     block styles
     block scripts
   body
-    block content
+    .container
+        header
+            h1 Chris Alvares
+        block content

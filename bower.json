@@ -17,7 +17,9 @@
       "requirejs-text":"latest",
       "requirejs-plugins":"latest",
       "bootstrap":"~3.0",
-      "underscore":"latest"
+      "underscore":"latest",
+      "highcharts.com":"git@github.com:highslide-software/highcharts.com.git",
+      "d3":"latest"
   },
   "ignore": [
     "**/.*",

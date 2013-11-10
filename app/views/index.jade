@@ -1,5 +1,15 @@
 extends layout
 
+block scripts
+    script(type='text/javascript', data-main='scripts/main', src='components/requirejs/require.js')
 block content
-  h1= title
-  p Welcome to #{title}
+    .row
+        .col-md-6
+            .income-graph
+        .col-md-6
+    .row
+        .col-md-6
+            .weight-graph
+        .col-md-6
+            .bmi-graph
+

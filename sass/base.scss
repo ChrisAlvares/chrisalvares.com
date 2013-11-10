@@ -1,0 +1,21 @@
+html, body
+{
+    background-color:black;
+    color:white;
+}
+
+header h1
+{
+    margin:20px;
+    color:#B1B1B1;
+    font-weight: 100;
+
+}
+
+body > .container
+{
+    width:100%;
+    max-width:1920px;
+    margin:0 auto;
+    
+}

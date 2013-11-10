@@ -4,7 +4,7 @@
  */
 
 var express = require('express');
-var provider = require('./app/providers/provider');
+var provider = require('./app/provider/');
 
 var http = require('http');
 var path = require('path');
