@@ -27,8 +27,9 @@ exports.data = function(req, res) {
                         if(type == 'ASSET')
                             assets[time] = (assets[time]||0) + value;
                         else if(type == 'DEBT')
-                            debt[time] = (debt[time]||0) + value;
+                            debt[time] = (debt[time]||0) + (-value);
                         net[time] = (net[time]||0) + value;
+                        
                     }
                 }
             }

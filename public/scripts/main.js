@@ -10,7 +10,7 @@ requirejs.config({
         underscore:'../components/underscore/underscore-min',
         text:'../components/requirejs-text/text',
         highcharts:'../components/highcharts.com/js/highcharts.src',
-        d3:'../components/d3/d3.min'
+        d3:'../components/d3/d3.min',
         apicalls:'/apicalls?extension='
     },
     shim: {

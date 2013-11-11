@@ -18,12 +18,13 @@ exports.index = function(req, res){
  * @since 1.0
  */
 exports.apicalls = function(req, res) {
+    res.set('Content-Type', 'application/json');
     var apicalls = {
         finance:"/finance/",
         bmi:"/bmi/",
         weight:"/weight/"
     }
-   res.send(200, JSON.stringify(apicalls));
+   res.send(200, 'define([], function(){return '+JSON.stringify(apicalls)+';})');
     
     
 }

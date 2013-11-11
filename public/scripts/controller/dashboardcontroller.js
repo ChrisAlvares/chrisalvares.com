@@ -1,15 +1,17 @@
 
-define(['jquery'], function($) {
+define(['jquery', 'views/financegraph'], function($) {
    
    var DashboardController = function() {
        
    } 
    
-   DashboardController.load = function() {
+   DashboardController.prototype.load = function() {
        this.reload();
    }
    
-   DashboardController.reload = function() {
+   DashboardController.prototype.reload = function() {
+       $(".finance-graph").financeGraph();
+       
        
    }
    
