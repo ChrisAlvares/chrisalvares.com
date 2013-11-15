@@ -1,3 +1,8 @@
+/*
+ * The main dashboard controller.
+ * @since 1.0
+ */
+
 
 define(['jquery', 'views/financegraph'], function($) {
    
@@ -11,10 +16,11 @@ define(['jquery', 'views/financegraph'], function($) {
    
    DashboardController.prototype.reload = function() {
        $(".finance-graph").financeGraph();
-       
-       
    }
    
+   DashboardController.prototype.clear = function() {
+       $(".finance-graph").html("").data("financeGraph", null);
+   }
    
    return DashboardController;
    

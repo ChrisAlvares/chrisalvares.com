@@ -1,0 +1,12 @@
+.highcharts-legend, .highcharts-axis-labels
+{
+    text {
+        color:#d2d2d2 !important;
+        fill:#d2d2d2 !important;
+    }
+}
+
+.highcharts-container svg > text
+{
+    display: none;
+}

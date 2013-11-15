@@ -128,10 +128,14 @@ define(['jquery', 'apicalls', 'highcharts', 'jqueryui'], function($, apicalls) {
                 }
             },
             legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
-                    borderWidth: 0
+                    layout: 'horizontal',
+                    align: 'bottom',
+                    verticalAlign: 'top',
+                    borderWidth: 0,
+                    margin:20,
+                    style: {
+                        color:'white'
+                    }
             },
             series: this.series
         });

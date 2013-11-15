@@ -11,3 +11,10 @@ body > .container {
   width: 100%;
   max-width: 1920px;
   margin: 0 auto; }
+
+.highcharts-legend text, .highcharts-axis-labels text {
+  color: #d2d2d2 !important;
+  fill: #d2d2d2 !important; }
+
+.highcharts-container svg > text {
+  display: none; }

@@ -53,7 +53,7 @@ setTimeout(function() {
 
 function outputDate(date)
 {
-    var m = date.getMonth();
+    var m = date.getMonth()+1;
     if(String(m).length < 2) m = "0" + m;
     var d = date.getDate();
     if(String(d).length < 2) d = "0" + d;
