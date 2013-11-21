@@ -12,5 +12,15 @@ module.exports = {
 		username:"",
 		password:""
 	},
+	github: {
+    	username:"",
+    	token:""
+	},
+	fitbit: {
+    	consumer: {
+        	key:"",
+        	secret:""
+    	}
+	},
 	debug: false
 }
