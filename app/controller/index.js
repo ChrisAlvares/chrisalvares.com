@@ -22,7 +22,8 @@ exports.apicalls = function(req, res) {
     var apicalls = {
         finance:"/finance/",
         github:"/github/",
-        fitbit:"/fitbit/"
+        fitbit:"/fitbit/",
+        productivity:"/productivity/"
     }
    res.send(200, 'define([], function(){return '+JSON.stringify(apicalls)+';})');
     

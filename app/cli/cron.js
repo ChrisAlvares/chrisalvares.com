@@ -14,4 +14,5 @@ var express = require('express');
 
 console.log('1 15 * * * node "' + __dirname + '/mintdata.js" > "'+__dirname+'/../log/cron.txt"');
 console.log('1 */3 * * * node "' + __dirname + '/githubdata.js" > "'+__dirname+'/../log/cron.txt"');
-console.log('1 12 * * * node "' + __dirname + '/fitbit.js" > "'+__dirname+'/../log/cron.txt"');
+console.log('1 12 * * * node "' + __dirname + '/fitbitdata.js" > "'+__dirname+'/../log/cron.txt"');
+console.log('30 13 * * * node "' + __dirname + '/productivitydata.js" > "'+__dirname+'/../log/cron.txt"');

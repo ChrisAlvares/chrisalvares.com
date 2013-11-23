@@ -13,6 +13,8 @@
     "mongodb":"latest",
     "mongoose":"latest",
     "github":"latest",
-    "oauth":"latest"
+    "oauth":"latest",
+    "request":"latest",
+    "moment":"latest"
   }
 }
