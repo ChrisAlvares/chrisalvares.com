@@ -8,7 +8,6 @@ var provider = require('../provider/');
 provider.setConfigVariables(app);
 
 var AppCache = require('../models/appcache');
-var dir = __dirname.replace(/ /gi,"\\ ");
 
 //get the github information
 var GitHubApi = require("github");
@@ -31,20 +30,18 @@ github.issues.getAll({
     }
     var issues = data;
   
-    var cache = new AppCache({
+    AppCache.update({name:'github-issues'}, {
         name:'github-issues',
         cache:issues.length,
         lastUpdate:new Date()
-    });
-
-    cache.save(function(error){
+    }, {upsert: true}, function(error){
         if(error) 
             console.log(error);
         else 
             console.log("Update Successful");
         process.exit(code=0);
     });
-})
+});
 
 
 

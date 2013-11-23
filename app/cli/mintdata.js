@@ -27,18 +27,18 @@ exec(command, function(error, stdout, stderr) {
     var s = String(stdout).replace(/\n/gi, '').match(/\-\-\-start payload\-\-\-(.*)\-\-\-end payload\-\-\-/);
 
     if(s != null && s.length > 1) {
-        var cache = new AppCache({
+
+
+        AppCache.update({name:'mint'}, {
             name:'mint',
             cache:s[1],
             lastUpdate:new Date()
-        });
-        cache.save(function(error){
+        }, {upsert: true}, function(error){
             if(error) 
                 console.log(error);
             else 
                 console.log("Update Successful");
             process.exit(code=0);
-                        
         });
     } else {
         console.log("An error occured");

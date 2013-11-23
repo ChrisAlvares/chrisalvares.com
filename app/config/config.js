@@ -20,7 +20,11 @@ module.exports = {
     	consumer: {
         	key:"",
         	secret:""
-    	}
+    	},
+    	token:""
+	},
+	rescuetime: {
+    	key:""
 	},
 	debug: false
 }

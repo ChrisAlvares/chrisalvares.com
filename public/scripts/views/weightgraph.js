@@ -5,7 +5,7 @@
 
 define(['jquery', 'highcharts', 'jqueryui'], function($) {
     
-    var FinanceGraph = function(container, opts) 
+    var WeightGraph = function(container, opts) 
     {
         this.container = $(container);
         this.options = $.extend(true, this.defaultOptions, opts);
@@ -13,34 +13,33 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
         this.options.dataObj == null || this.registerDataObj(this.options.dataObj);
     }
     
-    FinanceGraph.prototype.registerDataObj = function(dataObj) {
+    WeightGraph.prototype.registerDataObj = function(dataObj) {
         $(dataObj).on('didRecieveResponse', $.proxy(this.renderWithData, this));    
     }
         
-    FinanceGraph.prototype.renderWithData = function(event, dataobj, data)
+    WeightGraph.prototype.renderWithData = function(event, dataobj, data)
     {
         this.data = data;
         this.fillSeries();
         
-        this.fillData(data.assets, 0);
-        this.fillData(data.debt, 1);
-        this.fillData(data.net, 2);
+        this.fillData(data.weight, 0);
+        this.fillData(data.bmi, 1);
         this.render();
     }
     
-    FinanceGraph.prototype.fillData = function(data, seriesIndex)
+    WeightGraph.prototype.fillData = function(data, seriesIndex)
     {
         this.dates = [];
-        for(var millidate in data)
+        for(var dateStr in data)
         {
-            var value = data[millidate];
-            var date = new Date(Number(millidate));
+            var value = data[dateStr];
+            var date = new Date(dateStr);
             this.dates.push(date);
             this.series[seriesIndex].data.push([date, value]);
         }
     }
     
-    FinanceGraph.prototype.fillSeries = function()
+    WeightGraph.prototype.fillSeries = function()
     {
         this.series = [];
         
@@ -59,13 +58,11 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
                 }
             }
         }
-        this.series.push($.extend(true, {}, series, {name:'Cash', color:'#C6E9B5', yAxis:0}));
-        this.series.push($.extend(true, {}, series, {name:'Liabilities', color:'#c65959', yAxis:1}));
-        this.series.push($.extend(true, {}, series, {name:'Net Income', color:'#556aba', yAxis:0, lineWidth:6}));
-
+        this.series.push($.extend(true, {}, series, {name:'Weight', color:'#d3d3d3', yAxis:0}));
+        this.series.push($.extend(true, {}, series, {name:'BMI', color:'#999999', yAxis:1}));
     }
     
-    FinanceGraph.prototype.render = function()
+    WeightGraph.prototype.render = function()
     {
         var that = this;
         this.container.highcharts({
@@ -125,7 +122,8 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
                         var val = this.y;
                         var backVal = this.series.data[this.x-1].y;
                         var change = ((val - backVal) / backVal) * 100;
-                        return number_format(change, 2) + '% change';
+                        var color = (change > 0)?'red':'green';
+                        return '<span style="color:'+color+'">' + number_format(change, 2) + '% change</span>';
                     }
                     return '0% change';
                 }
@@ -144,17 +142,17 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
         });
     }
     
-    FinanceGraph.prototype.defaultOptions = {
+    WeightGraph.prototype.defaultOptions = {
         dataObj:null
     }
     
-    $.fn.financeGraph = function(options)
+    $.fn.weightGraph = function(options)
     {
         return $(this).each(function() {
-            $(this).data("financeGraph", new FinanceGraph(this, options));
+            $(this).data("weightGraph", new WeightGraph(this, options));
         });
     }
     
-    return FinanceGraph;
+    return WeightGraph;
     
 });

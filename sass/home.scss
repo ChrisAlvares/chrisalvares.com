@@ -1,12 +1,28 @@
 .highcharts-legend, .highcharts-axis-labels
 {
     text {
-        color:#d2d2d2 !important;
-        fill:#d2d2d2 !important;
+        color:#B1B1B1 !important;
+        fill:#B1B1B1 !important;
     }
 }
 
 .highcharts-container svg > text
 {
     display: none;
+}
+
+.bigtext
+{
+    font-size: 110px;
+    text-align: center;
+    font-weight: 100;
+
+}
+
+.bigtitle
+{
+    text-align: center;
+    font-size: 33px;
+    font-weight: 100;
+
 }

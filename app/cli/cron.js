@@ -12,5 +12,6 @@ var express = require('express');
 # └───────────────────────── min (0 - 59)
 */
 
-console.log('1 */2 * * * node "' + __dirname + '/mintdata.js" > "'+__dirname+'/../log/cron.txt"');
+console.log('1 15 * * * node "' + __dirname + '/mintdata.js" > "'+__dirname+'/../log/cron.txt"');
 console.log('1 */3 * * * node "' + __dirname + '/githubdata.js" > "'+__dirname+'/../log/cron.txt"');
+console.log('1 12 * * * node "' + __dirname + '/fitbit.js" > "'+__dirname+'/../log/cron.txt"');
