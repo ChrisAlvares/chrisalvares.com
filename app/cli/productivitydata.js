@@ -47,7 +47,8 @@ function parseData(data)
         news:0,
         working:0,
         email:0,
-        social:0
+        social:0,
+        miscellaneous:0
     };
     
     var indexes = {
@@ -88,10 +89,11 @@ function getType(name, category) {
 
     category = category.toLowerCase();
     var keys = {
-        news: ['news.ycombinator.com', 'reddit.com', 'General News'],
         working:['Adobe Photoshop', 'coda', 'Xcode', 'console.aws.amazon.com', 'Terminal', 'localhost', 'github.com', 'Software Development', 'developer.', 'api.'],
-        email:['gmail'],
-        social:['twitter.com', 'facebook.com', 'amazon.com', 'Social Networking', 'General Shopping']
+        email:['gmail', 'mail.pmg.co', 'mail.google.com'],
+        social:['twitter.com', 'facebook.com', 'amazon.com', 'Social Networking', 'General Shopping'],
+        news: ['news.ycombinator.com', 'reddit.com', 'News'],
+        miscellaneous: ['.com', '.net'],
     };
     for(var key in keys) {
         for(var index in keys[key]) {

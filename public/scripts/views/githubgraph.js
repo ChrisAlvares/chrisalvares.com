@@ -1,5 +1,5 @@
 /*
- * This is the finance graph which has my assets, debt and net incomes
+ * This is the github graph which handles github issues
  * @since 1.0
  */
 

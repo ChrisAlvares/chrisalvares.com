@@ -12,13 +12,15 @@ define([
     , 'views/githubgraph'
     , 'views/caloriecounter',
     , 'views/weightgraph'
+    , 'views/productivitygraph'
 ], function($, DataGetter, apicalls) {
    
    var DashboardController = function() {
        this.data = {
            finance:null,
            github:null,
-           fitbit:null
+           fitbit:null,
+           productivity:null
        };
    } 
    
@@ -27,7 +29,7 @@ define([
        this.data.finance = new DataGetter({url:apicalls.finance}); 
        this.data.github = new DataGetter({url:apicalls.github}); 
        this.data.fitbit = new DataGetter({url:apicalls.fitbit}); 
-
+       this.data.productivity = new DataGetter({url:apicalls.productivity});
        this.render();
 
 
@@ -39,6 +41,7 @@ define([
        $(".github-issues").githubIssuesGraph({dataObj:this.data.github});
        $(".calorie-counter").calorieCounterGraph({dataObj:this.data.fitbit});
        $(".weight-graph").weightGraph({dataObj:this.data.fitbit});
+       $(".productivity-graph").productivityGraph({dataObj:this.data.productivity});
    }   
    
    DashboardController.prototype.reload = function() {
