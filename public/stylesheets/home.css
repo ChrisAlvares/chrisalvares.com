@@ -1,3 +1,6 @@
+header h1 {
+  margin-left: 0px; }
+
 .highcharts-legend text, .highcharts-axis-labels text {
   color: #B1B1B1 !important;
   fill: #B1B1B1 !important; }
@@ -10,7 +13,13 @@
   text-align: center;
   font-weight: 100; }
 
+.space {
+  height: 20px; }
+
 .bigtitle {
   text-align: center;
   font-size: 33px;
   font-weight: 100; }
+
+.lefttitle {
+  text-align: left; }

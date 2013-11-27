@@ -4,8 +4,17 @@ block scripts
     script(type='text/javascript', data-main='scripts/main', src='components/requirejs/require.js')
 block content
     .row
-        .col-md-12
+        .col-md-6
+            .bigtitle.lefttitle.
+                Financial Status
+        .col-md-6
+            .bigtitle.lefttitle.
+                Health Trend
+    .row
+        .col-md-6
             .finance-graph
+        .col-md-6
+            .weight-graph
     .row
         .col-md-4
             .row
@@ -29,11 +38,14 @@ block content
                 .col-md-12
                     .calorie-counter.bigtext
                 .col-md-12.bigtitle.
-                    Calories Burned Today
+                    Calories Burned Today  
     .row
         .col-md-12
-            .weight-graph
+            .space
     .row
         .col-md-4
             .productivity-graph
-
+    .row            
+        .col-md-4
+            .bigtitle.
+                Productivity          

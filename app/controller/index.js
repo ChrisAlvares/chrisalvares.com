@@ -13,6 +13,10 @@ exports.index = function(req, res){
     res.render('index', {});
 };
 
+exports.portfolio = function(req, res) {
+    res.render('portfolio', {});  
+};
+
 /*
  * Function to get api calls to the javascript variables
  * @since 1.0

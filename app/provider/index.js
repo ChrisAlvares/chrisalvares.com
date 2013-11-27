@@ -12,10 +12,13 @@ provider.getRoutes = function(app) {
 	var productivity = require('../controller/productivity');
 	app.get('/', main.index);
 	app.get('/apicalls', main.apicalls);
+	app.get('/portfolio', main.portfolio);
 	app.get('/finance/', finance.data);
 	app.get('/fitbit/', fitbit.data);
 	app.get('/github/', github.data);
 	app.get('/productivity/', productivity.data);  
+	
+
 };
 
 

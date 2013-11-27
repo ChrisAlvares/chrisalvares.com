@@ -58,7 +58,7 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
                 }
             }
         }
-        this.series.push($.extend(true, {}, series, {name:'Weight', color:'#d3d3d3', yAxis:0}));
+        this.series.push($.extend(true, {}, series, {name:'Weight', color:'#556aba', yAxis:0}));
         this.series.push($.extend(true, {}, series, {name:'BMI', color:'#999999', yAxis:1}));
     }
     

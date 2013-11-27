@@ -1,15 +1,28 @@
 html, body {
   background-color: white;
-  color: #B1B1B1; }
+  color: #b1b1b1; }
 
 header h1 {
   margin: 20px;
   font-weight: 100; }
+header .menu {
+  text-align: right; }
+  header .menu a {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    padding: 20px;
+    font-size: 22px;
+    color: #b1b1b1;
+    font-weight: 100; }
 
 body > .container {
   width: 100%;
   max-width: 1920px;
   margin: 0 auto; }
+
+header h1 {
+  margin-left: 0px; }
 
 .highcharts-legend text, .highcharts-axis-labels text {
   color: #B1B1B1 !important;
@@ -23,7 +36,13 @@ body > .container {
   text-align: center;
   font-weight: 100; }
 
+.space {
+  height: 20px; }
+
 .bigtitle {
   text-align: center;
   font-size: 33px;
   font-weight: 100; }
+
+.lefttitle {
+  text-align: left; }

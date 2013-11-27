@@ -1,20 +1,32 @@
+$primary-font-color:#B1B1B1;
+$primary-font-weight:100;
 html, body
 {
     background-color:white;
-    color:#B1B1B1;
+    color:$primary-font-color;
 }
 
-header h1
-{
-    margin:20px;
-    font-weight: 100;
-
+header {
+    h1 {
+        margin:20px;
+        font-weight: $primary-font-weight;
+    }
+    .menu {
+        text-align: right;
+        a {
+            display: inline-block;
+            *display:inline;
+            *zoom:1;
+            padding:20px;
+            font-size:22px;
+            color:$primary-font-color;
+            font-weight:$primary-font-weight;
+        }            
+    }
 }
-
 body > .container
 {
     width:100%;
     max-width:1920px;
     margin:0 auto;
-    
 }
