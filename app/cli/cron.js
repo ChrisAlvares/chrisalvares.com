@@ -12,7 +12,28 @@ var express = require('express');
 # └───────────────────────── min (0 - 59)
 */
 
-console.log('1 15 * * * node "' + __dirname + '/mintdata.js" > "'+__dirname+'/../log/cron.txt"');
-console.log('1 */3 * * * node "' + __dirname + '/githubdata.js" > "'+__dirname+'/../log/cron.txt"');
-console.log('1 12 * * * node "' + __dirname + '/fitbitdata.js" > "'+__dirname+'/../log/cron.txt"');
-console.log('30 13 * * * node "' + __dirname + '/productivitydata.js" > "'+__dirname+'/../log/cron.txt"');
+
+var Cronjobs = function(app) {
+    this.app = app;
+    this.github = null;
+}
+
+Cronjobs.prototype.addProgram = function(program) {
+    var that = this;
+    program
+      .command('cron')
+      .description('creates a cron tab')
+      .action(function(options) {
+            that.exec(options);
+      });
+}
+
+Cronjobs.prototype.exec = function(options) {
+    console.log('1 15 * * * "' + __dirname + '/index.js" mint  >> "'+__dirname+'/../log/cron.txt"');
+    console.log('1 */3 * * * node "' + __dirname + '/index.js" github >> "'+__dirname+'/../log/cron.txt"');
+    console.log('1 12 * * * node "' + __dirname + '/index.js" fitbit >> "'+__dirname+'/../log/cron.txt"');
+    console.log('30 13 * * * node "' + __dirname + '/index.js" productivitydata >> "'+__dirname+'/../log/cron.txt"');
+    process.exit(code=0);
+}
+
+module.exports = Cronjobs;

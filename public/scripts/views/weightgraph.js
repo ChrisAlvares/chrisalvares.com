@@ -33,7 +33,7 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
         for(var dateStr in data)
         {
             var value = data[dateStr];
-            var date = new Date(dateStr);
+            var date = new Date(Number(dateStr));
             this.dates.push(date);
             this.series[seriesIndex].data.push([date, value]);
         }

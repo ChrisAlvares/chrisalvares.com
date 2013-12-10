@@ -1,11 +1,11 @@
 {
-  "name": "chrisalvares.com",
+  "name": "Sample Site",
   "version": "1.0.0",
-  "homepage": "https://github.com/ChrisAlvares/chrisalvares.com",
+  "homepage": "http://localhost",
   "authors": [
     "Chris Alvares <mail@chrisalvares.com>"
   ],
-  "description": "My Personal Website",
+  "description": "",
   "main": "./javascript/main.js",
   "license": "MIT",
   "private": true,

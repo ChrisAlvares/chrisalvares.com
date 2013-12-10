@@ -1,0 +1,39 @@
+extends layout
+
+block content
+    .alert.alert-error= error
+    .row
+        .col-md-3
+                form(role="form",method="POST",action="/admin/github/set")
+                    h2 Github
+                    .form-group
+                        label(for="github-username") Username: 
+                        input(type="text",name="github-username",id="github-username").form-control
+                    .form-group
+                        label(for="github-password") Token: 
+                        input(type="password",name="github-password",id="github-password").form-control
+                    .form-group
+                        input(type="submit", value="Save").btn.btn-success.pull-right
+        .col-md-3.col-md-offset-1
+                form(role="form",method="POST",action="/admin/rescuetime/set")
+                    h2 RescueTime
+                    .form-group
+                        label(for="rescuetime-token") Token:
+                        input(type="text",name="rescuetime-token",id="rescuetime-token").form-control
+                    .form-group
+                        input(type="submit", value="Save").btn.btn-success.pull-right
+    .row
+        .col-md-3
+                form(role="form",method="POST",action="/admin/mint/set")
+                    h2 Mint
+                    .form-group
+                        label(for="mint-username") Username: 
+                        input(type="text",name="mint-username",id="mint-username").form-control
+                    .form-group
+                        label(for="mint-password") Password: 
+                        input(type="password",name="mint-password",id="mint-password").form-control
+                    .form-group
+                        input(type="submit", value="Save").btn.btn-success.pull-right
+        .col-md-3.col-md-offset1
+            h2 Fitbit
+            a(href="/admin/fitbit/login") Login With Fitbit

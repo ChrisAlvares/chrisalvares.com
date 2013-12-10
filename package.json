@@ -1,12 +1,12 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "Fitness",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "3.4.4",
+    "express": "~3",
     "jade": "*",
     "jquery":"latest",
     "underscore":"latest",
@@ -16,6 +16,11 @@
     "oauth":"latest",
     "request":"latest",
     "moment":"latest",
-    "http-proxy":"latest"
+    "http-proxy":"latest",
+    "forever":"latest",
+    "passport":"latest",
+    "passport-google":"latest",
+    "ezcrypto":"latest",
+    "commander":"latest"
   }
 }
