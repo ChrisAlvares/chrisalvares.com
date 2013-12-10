@@ -9,10 +9,10 @@ module.exports = {
         port:'27017',
         dbname:'wwwchrisalvarescom',
     },
-	fitbit: {
+    fitbit: {
     	key:"",
     	secret:""
-	},
+    },
     google: {
         clientID:'',
         clientSecret:''
