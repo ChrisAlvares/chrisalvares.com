@@ -24,16 +24,29 @@ block content
                         input(type="submit", value="Save").btn.btn-success.pull-right
     .row
         .col-md-3
-                form(role="form",method="POST",action="/admin/mint/set")
-                    h2 Mint
-                    .form-group
-                        label(for="mint-username") Username: 
-                        input(type="text",name="mint-username",id="mint-username").form-control
-                    .form-group
-                        label(for="mint-password") Password: 
-                        input(type="password",name="mint-password",id="mint-password").form-control
-                    .form-group
-                        input(type="submit", value="Save").btn.btn-success.pull-right
-        .col-md-3.col-md-offset1
+            form(role="form",method="POST",action="/admin/mint/set")
+                h2 Mint
+                .form-group
+                    label(for="mint-username") Username: 
+                    input(type="text",name="mint-username",id="mint-username").form-control
+                .form-group
+                    label(for="mint-password") Password: 
+                    input(type="password",name="mint-password",id="mint-password").form-control
+                .form-group
+                    input(type="submit", value="Save").btn.btn-success.pull-right
+        .col-md-3.col-md-offset-1
             h2 Fitbit
             a(href="/admin/fitbit/login") Login With Fitbit
+    .row
+        .col-md-3
+            form(role="form",method="POST",action="/admin/electricity/set")
+                h2 Texas Smart Meter
+                .form-group
+                    label(for="electricity-username") Username: 
+                    input(type="text",name="electricity-username",id="electricity-username").form-control
+                .form-group
+                    label(for="electricity-password") Password:
+                    input(type="password",name="electricity-password",id="electricity-password").form-control
+                .form-group
+                    input(type="submit",value="Save").btn.btn-success.pull-right
+            

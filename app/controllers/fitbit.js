@@ -6,8 +6,7 @@ var $ = require('jquery');
 
 module.exports = function(app) {
     
-
-    var oauth = new OAuth.OAuth(
+        var oauth = new OAuth.OAuth(
         'http://api.fitbit.com/oauth/request_token',
         'http://api.fitbit.com/oauth/access_token',
         app.get('fitbit').key,
@@ -91,7 +90,7 @@ module.exports = function(app) {
                 
                 //now get the fitbit activity data
                 AppCache.findOne({name:'fibit-data-activity'}, function(error, result) {
-                    if(error) {
+                    if(error || result == null) {
                         console.log(error);
                         res.send(output);
                         return;

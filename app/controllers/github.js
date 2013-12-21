@@ -24,7 +24,7 @@ module.exports = {
         
         Github.findOne({}, null, {sort:'-date'}, function(error, result) {
             var output = {issues:0};
-            if(error) {
+            if(error || result == null) {
                 console.log(error);
                 res.send(output);
                 return;

@@ -31,7 +31,7 @@ module.exports = {
                 miscellaneous: 1            
             };
             
-            if(error) {
+            if(error || result == null) {
                 console.log(error);
                 res.send(output);
                 return;

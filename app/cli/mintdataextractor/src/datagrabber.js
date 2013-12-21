@@ -21,7 +21,7 @@
 			var interval = window.setTimeout(function(){
 				console.log('{"error":"Page Timed out"}');
 				phantom.exit();
-			}, 5000);
+			}, 30000);
 
 			parser.page.onAlert = function(msg)
 			{

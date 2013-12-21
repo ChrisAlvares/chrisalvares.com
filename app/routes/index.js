@@ -12,6 +12,8 @@ var crypto = require('crypto');
 var github = require('../controllers/github');
 var mint = require('../controllers/mint');
 var rescuetime = require('../controllers/rescuetime');
+var electricity = require('../controllers/electricity');
+
 module.exports = function(app)
 {
     var admin = require('../controllers/admin')(app);
@@ -63,6 +65,7 @@ module.exports = function(app)
     app.post('/admin/github/set', ensureAuthenticated, github.setCredentials);
     app.post('/admin/mint/set', ensureAuthenticated, mint.setCredentials);
     app.post('/admin/rescuetime/set', ensureAuthenticated, rescuetime.setCredentials);
+    app.post('/admin/electricity/set', ensureAuthenticated, electricity.setCredentials);
     app.get('/admin/fitbit/login', ensureAuthenticated, fitbit.login);
     app.get('/admin/fitbit/set', ensureAuthenticated, fitbit.save);
     
