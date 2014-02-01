@@ -1,29 +1,29 @@
 doctype html
-    html
-        head
-            title A personal, personal website by Chris Alvares
-            meta(charset="utf-8")
-            meta(http-equiv="X-UA-Compatible", content="IE=edge")
-            link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.min.css')
-            link(rel='stylesheet', href='/stylesheets/style.css')
-            block styles
-            block scripts
-        body
-            .container
-                header
-                    .row
-                        .col-md-3
-                            h1 Chris Alvares
-                        .col-md-9.menu
-                            a(href="/portfolio") Portfolio
-                            a(href="/blog") Blog
-                block content
+html
+    head
+        title A personal, personal website by Chris Alvares
+        meta(charset="utf-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        block styles
+        block scripts
+    body
+        .container
+            header
+                .row
+                    .col-md-3
+                        h1 Chris Alvares
+                    .col-md-9.menu
+                        a(href="/portfolio") Portfolio
+                        a(href="/blog") Blog
+            block content
 
-        // Google Analytics: change UA-XXXXX-X to be your site's ID.
-        script(type="text/javascript").
-            (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-            e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-            e.src='//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-31251643-1');ga('send','pageview');
+    // Google Analytics: change UA-XXXXX-X to be your site's ID.
+    script(type="text/javascript").
+        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+        ga('create','UA-31251643-1');ga('send','pageview');
