@@ -2,7 +2,7 @@
  * a Fitbit data integration class
  */
 var $ = require('jquery');
-var OAuth = require('OAuth');
+var OAuth = require('oauth');
 var Logins = require('../models/logins');
 var FitbitWeight = require('../models/fitbit-weight');
 var AppCache = require('../models/cache');
