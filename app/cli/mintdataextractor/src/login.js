@@ -10,30 +10,31 @@
 		if(this.isLoggedIn()) return;
 		var parser = this;
 		this.page.open('https://wwws.mint.com/login.event', function(status) {
-		
-			if(!parser.success(status)) {
-				console.log("{'error':'Unable to load the login page: "+status+"'}");
-				phantom.exit();
-			}
-			
-			parser.page.injectJs('lib/jquery.js');
-			
-			var results = parser.page.evaluate(function(username, password)
-			{			
-				jQuery('#form-login-username').val(username);
-				jQuery('#form-login-password').val(password);
-				jQuery('#form-login').submit();
-				return true;
-			}, username, password);
-			
-			window.setTimeout(function() {
-				if(parser.isLoggedIn()) {
-					if(typeof callback !== 'undefined') callback();
-				} else {
-					console.log("{'error':'Bad Username or Password'}");
-					phantom.exit();
-				}
-			}, 5000);
+		  setTimeout(function() {
+    			if(!parser.success(status)) {
+    				console.log("{'error':'Unable to load the login page: "+status+"'}");
+    				phantom.exit();
+    			}
+    			
+    			parser.page.injectJs('lib/jquery.js');
+    		    console.log('login page loaded, injecting jquery');
+    			var results = parser.page.evaluate(function(username, password)
+    			{			
+    				jQuery('#form-login-username').val(username);
+    				jQuery('#form-login-password').val(password);
+    				jQuery('#form-login, #submit, input[value="Log in"]').click();
+    				return true;
+    			}, username, password);
+
+    			window.setTimeout(function() {
+    				if(parser.isLoggedIn()) {
+    					if(typeof callback !== 'undefined') callback();
+    				} else {
+    					console.log("{'error':'Bad Username or Password'}");
+    					phantom.exit();
+    				}
+    			}, 5000);
+            }, 3000);
 		});			
 	}
 	
