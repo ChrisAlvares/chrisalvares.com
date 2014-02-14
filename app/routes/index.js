@@ -59,7 +59,7 @@ module.exports = function(app)
     app.get('/github', github.get);
     app.get('/fitbit', fitbit.get);
     app.get('/productivity', rescuetime.get);   
-
+    app.get('/energy', electricity.get); 
 
     app.get('/admin', ensureAuthenticated, admin.home);
     app.post('/admin/github/set', ensureAuthenticated, github.setCredentials);

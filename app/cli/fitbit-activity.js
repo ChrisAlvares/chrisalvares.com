@@ -4,13 +4,14 @@
 var $ = require('jquery');
 var OAuth = require('oauth');
 var Logins = require('../models/logins');
-var FitbitWeight = require('../models/fitbit-weight');
+var FitbitActivity = require('../models/fitbit-activity');
 var AppCache = require('../models/cache');
 
 var FitbitCommand = function(app)
 {
     this.app = app;
     this.date = new Date();
+    this.date.setDate(this.date.getDate()-30);
     this.oauth = new OAuth.OAuth(
       'http://api.fitbit.com/oauth/request_token',
       'http://api.fitbit.com/oauth/access_token',
@@ -28,34 +29,14 @@ FitbitCommand.prototype.addProgram = function(program)
     var that = this;
     
     program
-      .command('fitbit')
-      .option('-d, --date [MM/DD/YYYY]', 'the start date in format MM/DD/YYYY')
+      .command('fitbitactivity')
+      .option('-d, --date [MM/DD/YYYY]', 'the start date in format MM/DD/YYYY, will go up until todays date')
       .option('-t, --type [string]', 'what time of data to get, "weight" or "activity" defaults to "weight"')
       .description('gets fitbit data')
       .action(function(options) {
-            var type = options.type || "weight";
             if(options.date) that.date = new Date(options.date);
-
-            if(options.type == "activity") 
-                that.execActivity(options);
-            else
-                that.execWeight(options);
+            that.execActivity(options);
       });
-}
-
-FitbitCommand.prototype.execWeight = function(options)
-{
-    var that = this;
-    var url = 'http://api.fitbit.com/1/user/-/body/log/weight/date/'+this.getCurrentDate()+'/1m.json';
-    this.getAuthRequest(url, function(error, data) {
-        if(error) {
-            console.log(error);
-            process.exit(code=0);
-        }
-        
-        var weightData = data.weight;
-        that.insertWeightData(weightData, 0, $.proxy(that.insertWeightData, that));
-    });
 }
 
 FitbitCommand.prototype.execActivity = function(options)
@@ -66,42 +47,36 @@ FitbitCommand.prototype.execActivity = function(options)
         if(error) {
             console.log(error);
             process.exit(code=0);
+        }        
+        
+        if(typeof data.summary === 'undefined') {
+            console.log('No Summary provided for date');
+            process.exit(code=0);
         }
-        AppCache.update({name:'fibit-data-activity'}, {
-            name:'fibit-data-activity',
-            cache:JSON.stringify(data),
-            lastUpdate:new Date()
+        
+        FitbitActivity.update({date:that.getFreshDate()}, {
+            date:that.getFreshDate(),
+            veryActiveMinutes: data.summary.veryActiveMinutes,
+            fairlyActiveMinutes:  data.summary.fairlyActiveMinutes,
+            steps: data.summary.steps,
+            activityCalories: data.summary.activityCalories,
+            rawActivityOutput: JSON.stringify(data)
         }, {upsert: true}, function(error) {
             if(error) {
                 console.log(error);
             }
-            console.log("Finished");
-            process.exit(code=0);
+            //move on to the next day
+            that.date.setDate(that.date.getDate()+1);
+            if(that.date.getTime() > Date.now()) {
+                console.log('Finished');
+                process.exit(code=0);
+                return;
+            }
+            that.execActivity(options);
         });
     });
 }
 
-
-FitbitCommand.prototype.insertWeightData = function(weightData, index, next)
-{
-    if(index >= weightData.length) {
-        console.log("Finished");
-        process.exit(code=0);
-    }
-    var data = weightData[index];
-    var date = new Date(data.date);
-    
-    FitbitWeight.update({date:date}, {
-        date: date,
-        weight:data.weight,
-        bmi: data.bmi
-    }, {upsert:true}, function(error) {
-        if(error) {
-            console.log(error);
-        }
-        next(weightData, index+1, next);
-    });
-}
 
 FitbitCommand.prototype.getAuthRequest = function(url, callback)
 {
@@ -126,6 +101,19 @@ FitbitCommand.prototype.getAuthRequest = function(url, callback)
     });
 }
 
+FitbitCommand.prototype.getFreshDate = function(date)
+{
+    if(typeof date === 'undefined') {
+        date = this.date;
+    }
+    
+    var date = new Date(date);
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+    return date;
+}
 
 FitbitCommand.prototype.getCurrentDate = function()
 {

@@ -1,5 +1,5 @@
 /*
- * This class is a generic data getter, it is not customized
+ * This class is a data getter, it is not customized
  * When the time is right, it will send some events in this order
  * connnected with data object - before the connection is loaded
  * didRecieveResponse with data object and either a JSON object or string depending on the datatype
@@ -13,10 +13,9 @@ define(['jquery'], function($)
 	//this object will contain anything called from the setKey function.
 	//if an object sets a tag, any other data getter with that same object is cancelled. 
 	//this prevents data from loading in the previous requests.
-	var k = window;
-	k.dataGetters = {};
+	window.dataGetters = {};
 
-	var GenericDataGetter = function(opts, tagid)
+	var DataGetter = function(opts, tagid)
 	{
 		this.options = $.extend({}, this.options, opts);
 		
@@ -32,39 +31,39 @@ define(['jquery'], function($)
 	}
 	
 	
-	GenericDataGetter.prototype.getData = function()
+	DataGetter.prototype.getData = function()
 	{
 		return this.data;
 	}
 	
-	GenericDataGetter.prototype.isLoading = function()
+	DataGetter.prototype.isLoading = function()
 	{
 		return this.loading;
 	}
 	
-	GenericDataGetter.prototype.cancel = function() 
+	DataGetter.prototype.cancel = function() 
 	{
 		if(this.isLoading() && this.xhr != null)
 			this.xhr.abort();
 	}
 	
-	GenericDataGetter.prototype.setTag = function(tagid)
+	DataGetter.prototype.setTag = function(tagid)
 	{
-		if(typeof k.dataGetters[tagid] !== 'undefined') {
-			if(k.dataGetters[tagid].isLoading()) {
-				k.dataGetters[tagid].cancel();
+		if(typeof window.dataGetters[tagid] !== 'undefined') {
+			if(window.dataGetters[tagid].isLoading()) {
+				window.dataGetters[tagid].cancel();
 			}
 		}
 		
-		k.dataGetters[tagid] = this;
+		window.dataGetters[tagid] = this;
 	}
 	
-	GenericDataGetter.prototype.canLoadMoreData = function()
+	DataGetter.prototype.canLoadMoreData = function()
 	{
 		return !(this.isLoading() || this.hasErroredOut || this.hasFinishedLoadingAllRows);
 	}
 	
-	GenericDataGetter.prototype.get = function()
+	DataGetter.prototype.get = function()
 	{
 		this.loading = true;
 		this.hasErroredOut = false;
@@ -95,7 +94,7 @@ define(['jquery'], function($)
 		});		
 	}
 	
-	GenericDataGetter.prototype.receieveData = function(data)
+	DataGetter.prototype.receieveData = function(data)
 	{
 		if(data == null) {
 			this.pushEvent("error", "Could not fetch data");
@@ -112,7 +111,7 @@ define(['jquery'], function($)
 		this.pushEvent("success", this);
 	}
 	
-	GenericDataGetter.prototype.pushEvent = function(eventName, message)
+	DataGetter.prototype.pushEvent = function(eventName, message)
 	{
 		if(eventName == "error") 
 			this.hasErroredOut = true;
@@ -120,11 +119,11 @@ define(['jquery'], function($)
 	}
 
 
-	GenericDataGetter.prototype.options = {
+	DataGetter.prototype.options = {
 	    method:'GET',
 		url:'',
  		parameters:{}
 	}
 
-    return GenericDataGetter;
+    return DataGetter;
 });

@@ -3,20 +3,21 @@
  */
 
 var exec = require('child_process').exec;
-var Mint = require('../models/mint');
+var Energy = require('../models/energy');
 var Logins = require('../models/logins');
 var $ = require('jquery');
+var _ = require('underscore');
 
-var MintCommand = function(app) {
+var ElectricityCommand = function(app) {
     this.app = app;
     
 }
 
-MintCommand.prototype.addProgram = function(program) {
+ElectricityCommand.prototype.addProgram = function(program) {
     var that = this;
     program
-      .command('mint')
-      .description('fetches mint data')
+      .command('electricity')
+      .description('fetches electricity information from texas smart meter')
       .option("-n, --numberofdays [number]", "number of days to fetch data for. Default: 30")
       .option("-d --lastdate [MM/DD/YYYY]", "date to end with")
       .action(function(options) {
@@ -24,7 +25,7 @@ MintCommand.prototype.addProgram = function(program) {
       });
 }
 
-MintCommand.prototype.exec = function(options) {
+ElectricityCommand.prototype.exec = function(options) {
     var days = options.numberofdays || 30;
     var endDate = new Date();
     if(options.lastdate) endDate = new Date(options.lastdate);
@@ -32,32 +33,33 @@ MintCommand.prototype.exec = function(options) {
     this.buildCommand(Number(days), endDate);
 }
 
-MintCommand.prototype.buildCommand = function(numberOfDays, endDate) {
-    var mData = this;
+ElectricityCommand.prototype.buildCommand = function(numberOfDays, endDate) {
+    var eData = this;
     
     var dir = __dirname.replace(/ /gi,"\\ ");
     var startDate = new Date(endDate);
     startDate.setDate(startDate.getDate()-numberOfDays);
 
-    Logins.getLoginDataForKey("mint", function(error, loginData) {
+    Logins.getLoginDataForKey("electricity", function(error, loginData) {
         if(error || loginData == null) {
-            mData.errorOut(error || "Could not find any mint login data");
+            eData.errorOut(error || "Could not find any electricity login data");
             return;
         }
 
-        var command = dir + "/mintdataextractor/phantomjs/bin/phantomjs "
-        command += dir + "/mintdataextractor/mint.js ";        
+        var command = dir + "/mintdataextractor/phantomjs/bin/phantomjs "; //use the mint.com phantomjs, this should be changed to use a centralized phantomjs @todo!
+        command += dir + "/smartmeterdataextractor/smartmeter.js ";     
+        command += '"monthly" ';
         command += '"'+loginData.username+'" ';
         command += '"'+loginData.password+'" ';
-        command += '"'+mData.outputDate(startDate)+'" ';
-        command += '"'+mData.outputDate(endDate)+'"';
+        command += '"'+eData.outputDate(startDate)+'" ';
+        command += '"'+eData.outputDate(endDate)+'"';
 
-        exec(command, $.proxy(mData.didExecuteCommand, mData));
+        exec(command, _.bind(eData.didExecuteCommand, eData));
 
     });
 }
 
-MintCommand.prototype.didExecuteCommand = function(error, stdout, stderr) {
+ElectricityCommand.prototype.didExecuteCommand = function(error, stdout, stderr) {
     if(error) {
         this.errorOut(error);
         return;
@@ -71,27 +73,9 @@ MintCommand.prototype.didExecuteCommand = function(error, stdout, stderr) {
     
     if(s != null && s.length > 1) {
         var data = JSON.parse(s[1]);
-                
-        if(typeof data.trendList !== 'undefined') {       
-            var dbData = {};
-            for(var index in data.trendList) {
-                var pairs = data.trendList[index];
-                for(var d in pairs) {
-                    var dict = pairs[d];
-                    var time = dict.date;
-                    var type = dict.type;
-                    var value = dict.value;
-
-                    dbData[time] = dbData[time] || {time:time};
-                
-                    if(type == 'ASSET')
-                        dbData[time]['assets'] = (dbData[time]['assets']||0) + value;
-                    else if(type == 'DEBT')
-                         dbData[time]['debt'] = (dbData[time]['debt']||0) + (-value);
-                    dbData[time]['net'] = (dbData[time]['net']||0) + value; 
-                }
-            }
-            this.insertIntoDB(dbData);
+               
+        if(data instanceof Array) {       
+            this.insertIntoDB(data);
         }
     } else {
         this.errorOut("Could not get data");
@@ -99,17 +83,12 @@ MintCommand.prototype.didExecuteCommand = function(error, stdout, stderr) {
 
 }
 
-MintCommand.prototype.insertIntoDB = function(dbData) {
+ElectricityCommand.prototype.insertIntoDB = function(dbData) {
     //put all of these in a array
-    var arr = [];
-    for(var key in dbData) {
-        arr.push(dbData[key]);
-    }
-
-    this.insert(arr, 0, this.insert);
+    this.insert(dbData, 0, this.insert);
 }
 
-MintCommand.prototype.insert = function(insertData, index, next) {
+ElectricityCommand.prototype.insert = function(insertData, index, next) {
 
     if(index >= insertData.length) {
         console.log("Finished");
@@ -118,13 +97,13 @@ MintCommand.prototype.insert = function(insertData, index, next) {
     }
 
     var data = insertData[index];
-    var date = new Date(data.time);
+    var date = new Date(data.date);
     
-    Mint.update({date:date}, {
+    Energy.update({date:date}, {
         date:date,
-        netIncome:data.net,
-        debt:data.debt,
-        cash:data.assets
+        endreading:data.endreading,
+        startreading:data.startreading,
+        wattage:data.wattage
     }, {upsert:true}, function(error) {
         if(error) {
             console.log(error);
@@ -134,14 +113,14 @@ MintCommand.prototype.insert = function(insertData, index, next) {
 }
 
 
-MintCommand.prototype.errorOut = function(error) {
+ElectricityCommand.prototype.errorOut = function(error) {
     console.log(error);
     process.exit(code=0);
     
 }
 
 
-MintCommand.prototype.outputDate = function(date)
+ElectricityCommand.prototype.outputDate = function(date)
 {
     var m = date.getMonth()+1;
     if(String(m).length < 2) m = "0" + m;
@@ -150,4 +129,4 @@ MintCommand.prototype.outputDate = function(date)
     return m + "/" + d + "/" + date.getFullYear();
 }
 
-module.exports = MintCommand;
+module.exports = ElectricityCommand;

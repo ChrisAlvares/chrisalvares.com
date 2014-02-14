@@ -1,7 +1,7 @@
 var OAuth = require('oauth');
 var Logins = require('../models/logins');
 var AppCache = require('../models/cache');
-var FitbitWeight = require('../models/fitbit-weight');
+var FitbitActivity = require('../models/fitbit-activity');
 var $ = require('jquery');
 
 module.exports = function(app) {
@@ -65,7 +65,11 @@ module.exports = function(app) {
             var output = {
                 bmi:{},
                 weight:{},
-                activity: {}
+                activity: {},
+                veryActiveMinutes: {},
+                fairlyActiveMinutes:{},
+                activityCalories:{},
+                steps:{},
             };
             
             var randomizer = Math.random() * 3000;
@@ -73,7 +77,7 @@ module.exports = function(app) {
             var date = new Date();;
             date.setDate(date.getDate()-60);
             
-            FitbitWeight.find({date:{$gte: date}}, null, {sort:'date'}).exec(function(error, results) {
+            FitbitActivity.find({date:{$gte: date}}, null, {sort:'date'}).exec(function(error, results) {
 
                 if(error) {
                     console.log(error);
@@ -84,21 +88,16 @@ module.exports = function(app) {
                 for(var index in results) {
                     var data = results[index];
                     var time = (new Date(data.date)).getTime();
+                    if(!data.weight) continue;
                     output.bmi[time] = data.bmi * randomizer;
                     output.weight[time] = data.weight * randomizer;
+                    output.veryActiveMinutes[time] = Number(data.veryActiveMinutes) || 0;
+                    output.fairlyActiveMinutes[time] = Number(data.fairlyActiveMinutes) || 0;
+                    output.activityCalories[time] = Number(data.activityCalories) || 0;
+                    output.steps[time] = Number(data.steps) || 0;
                 }
-                
-                //now get the fitbit activity data
-                AppCache.findOne({name:'fibit-data-activity'}, function(error, result) {
-                    if(error || result == null) {
-                        console.log(error);
-                        res.send(output);
-                        return;
-                    }
-                    output.activity = JSON.parse(result.cache);
-                    res.send(output);                     
-                });
-                
+                res.send(output);
+                //res.send(JSON.stringify(output));
             });
                 
             

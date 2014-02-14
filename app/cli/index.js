@@ -12,7 +12,7 @@ module.exports = app;
 var program = require('commander');
 
 
-var includes = ['mint', 'github', 'cron', 'fitbit', 'rescuetime'];
+var includes = ['mint', 'github', 'cron', 'fitbit-weight', 'fitbit-activity', 'rescuetime', 'electricity'];
 
 for(var index in includes) {
     var CommandClass = require('./' + includes[index]);

@@ -43,7 +43,8 @@ define(['jquery', 'underscore'], function($, _) {
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: 0,
-                plotShadow: false
+                plotShadow: false,
+                height: 260
             },
             title: {
                 text: 'Productivity',

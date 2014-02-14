@@ -22,8 +22,12 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
         this.data = data;
         this.fillSeries();
         
-        this.fillData(data.weight, 0);
-        this.fillData(data.bmi, 1);
+        
+        //this.fillData(data.activityCalories, 0);
+        this.fillData(data.veryActiveMinutes, 0);
+        this.fillData(data.fairlyActiveMinutes, 1);
+        this.fillData(data.weight, 3);
+        this.fillData(data.bmi, 2);
         this.render();
     }
     
@@ -58,8 +62,18 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
                 }
             }
         }
+        /*this.series.push($.extend(true, {}, series, {name:'Fitness Calories Burned', color:'#C6E9B5', yAxis:2, type: 'areaspline'}));
+        this.series.push($.extend(true, {}, series, {name:'Active Minutes', color:'#5aa436', yAxis:3, type: 'areaspline', stacking: 'normal'}));
+        this.series.push($.extend(true, {}, series, {name:'Semi Active Minutes', color:'#9aeb73', yAxis:3, type: 'areaspline', stacking: 'normal'}));
         this.series.push($.extend(true, {}, series, {name:'Weight', color:'#556aba', yAxis:0}));
+        this.series.push($.extend(true, {}, series, {name:'BMI', color:'#999999', yAxis:1}));*/
+
+        //this.series.push($.extend(true, {}, series, {name:'Fitness Calories Burned', color:'#556aba', yAxis:2, type: 'areaspline', visible: false}));
+        this.series.push($.extend(true, {}, series, {name:'Active Minutes', color:'#0f2b94', yAxis:3, type: 'areaspline', stacking: 'normal'}));
+        this.series.push($.extend(true, {}, series, {name:'Semi Active Minutes', color:'#586dc1', yAxis:3, type: 'areaspline', stacking: 'normal'}));
         this.series.push($.extend(true, {}, series, {name:'BMI', color:'#999999', yAxis:1}));
+        this.series.push($.extend(true, {}, series, {name:'Weight', color:'#299734', yAxis:0}));
+        
     }
     
     WeightGraph.prototype.render = function()
@@ -112,13 +126,39 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
                             return "";
                         }
                     }
-
+                }, {
+                    gridLineWidth: 1,
+                    gridLineColor:'black',
+                    title: '',
+                    opposite: true,
+                    labels: {
+                        formatter:function() {
+                            return "";
+                        }
+                    }
+                }, {
+                    gridLineWidth: 1,
+                    gridLineColor:'black',
+                    title: '',
+                    opposite: true,
+                    labels: {
+                        formatter:function() {
+                            return "";
+                        }
+                    }
                 }
             ],
             tooltip: {
                 enabled:true,
                 formatter: function() {
-                    if(this.x >= 2) {
+                    if(this.series.name == 'Fitness Calories Burned') {
+                        return this.y + ' Calories Burned From Activity';
+                    } else if(this.series.name == 'Active Minutes') {
+                        return this.y + ' Active Minutes';
+                    } else if(this.series.name == 'Semi Active Minutes') {
+                        return this.y + ' Semi-Active Minutes';
+                    }
+                    if(this.x >= 1) {
                         var val = this.y;
                         var backVal = this.series.data[this.x-1].y;
                         var change = ((val - backVal) / backVal) * 100;

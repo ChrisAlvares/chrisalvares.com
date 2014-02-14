@@ -5,21 +5,25 @@
 
 var mongoose = require('mongoose');
 
-var FitbitWeight = new mongoose.Schema({
+var Energy = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now, 
         unique: true,
         trim:true
     },
-    weight: {
+    endreading: {
         type: Number, 
         default: 0
     },
-    bmi: {
+    startreading: {
+        type: Number,
+        default: 0,
+    },
+    wattage: {
         type: Number,
         default: 0
     }
 });
 
-module.exports = mongoose.model('FitbitWeight', FitbitWeight);
+module.exports = mongoose.model('Energy', Energy);

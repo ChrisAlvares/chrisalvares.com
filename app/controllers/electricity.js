@@ -1,5 +1,6 @@
 var Logins = require('../models/logins');
 var $ = require('jquery');
+var Energy = require('../models/energy');
 
 module.exports = {
     
@@ -22,15 +23,14 @@ module.exports = {
     
     , get:function(req, res) {
         
-        Github.findOne({}, null, {sort:'-date'}, function(error, result) {
-            var output = {issues:0};
+        Energy.find({}, null, {sort:'-date', limit:60}, function(error, result) {
+            var output = [];
             if(error || result == null) {
                 console.log(error);
                 res.send(output);
                 return;
             }
-            output.issues = result.issues;
-            res.send(output);
+            res.send(result);
         });
         
     }
