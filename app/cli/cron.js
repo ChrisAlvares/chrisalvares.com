@@ -29,7 +29,7 @@ Cronjobs.prototype.addProgram = function(program) {
 }
 
 Cronjobs.prototype.exec = function(options) {
-    console.log('1 */4 * * * "' + __dirname + '/index.js" mint  >> "'+__dirname+'/../log/mint.txt"');
+    console.log('1 */4 * * * node "' + __dirname + '/index.js" mint  >> "'+__dirname+'/../log/mint.txt"');
     console.log('1 */3 * * * node "' + __dirname + '/index.js" github >> "'+__dirname+'/../log/github.txt"');
     console.log('15 * * * * node "' + __dirname + '/index.js" fitbit >> "'+__dirname+'/../log/fitbit.txt"');
     console.log('30 13 * * * node "' + __dirname + '/index.js" rescuetime >> "'+__dirname+'/../log/rescuetime.txt"');
