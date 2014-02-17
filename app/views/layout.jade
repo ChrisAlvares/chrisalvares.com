@@ -4,9 +4,7 @@ html
         title A personal, personal website by Chris Alvares
         meta(charset="utf-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.min.css')
-        link(rel='stylesheet', href='/stylesheets/style.css')
-        block styles
+        meta(name="viewport", content="width=device-width, initial-scale=1")
         block scripts
     body
         .container
@@ -27,3 +25,6 @@ html
         e.src='//www.google-analytics.com/analytics.js';
         r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
         ga('create','UA-31251643-1');ga('send','pageview');
+link(rel='stylesheet', href='/components/bootstrap/dist/css/bootstrap.min.css')
+link(rel='stylesheet', href='/stylesheets/style.css')
+block styles

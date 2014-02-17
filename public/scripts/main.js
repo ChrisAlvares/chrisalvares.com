@@ -22,7 +22,8 @@ requirejs.config({
          d3:{
              exports:"d3"
          }
-    }
+    },
+    urlArgs: 'version=1.1'
 });
 
 // Start the main app logic.
