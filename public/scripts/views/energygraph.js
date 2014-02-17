@@ -1,4 +1,4 @@
-/*
+/**
  * This is the finance graph which has my assets, debt and net incomes
  * @since 1.0
  */
@@ -48,7 +48,7 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
                enabled: false
             },
             type: 'column',
-            color:"black",
+            color:"black"
         }
         this.series.push($.extend(true, {}, series, {name:'Wattage', color:'#C6E9B5', yAxis:0}));
     }
@@ -68,7 +68,7 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
                 height: 260
             },
             title: {
-                text: '',
+                text: ''
             },
             xAxis: {
                 type: 'datetime',
@@ -87,7 +87,7 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
             yAxis: [
                 {
                     title: '',
-                    gridLineColor:'black',
+                    gridLineColor:'black'
                 }, {
                     gridLineWidth: 1,
                     gridLineColor:'black',

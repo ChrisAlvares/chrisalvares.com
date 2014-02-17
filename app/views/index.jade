@@ -1,7 +1,10 @@
 extends layout
 
 block scripts
-    script(async,type='text/javascript', data-main='scripts/main', src='components/requirejs/require.js')
+    if debug
+        script(async,type='text/javascript', data-main='scripts/main', src='components/requirejs/require.js')
+    else
+        script(async,type='text/javascript' src='scripts/main-build-production.js')
 block content
     .row
         .col-md-6

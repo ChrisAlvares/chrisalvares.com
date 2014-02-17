@@ -53,7 +53,10 @@ module.exports = function(app)
     app.get('/auth/google/return', 
         passport.authenticate('google', { successRedirect: '/admin',
                                     failureRedirect: '/' }));
-    app.get('/', mainRoute.index);
+    app.get('/', function(req, res, next) {
+        req.debug = app.get('debug');
+        next();
+    }, mainRoute.index);
     app.get('/apicalls', mainRoute.apicalls);
     app.get('/finance', mint.get);
     app.get('/github', github.get);

@@ -1,4 +1,4 @@
-/*
+/**
  * This is the finance graph which has my assets, debt and net incomes
  * @since 1.0
  */
@@ -91,7 +91,7 @@ define(['jquery', 'highcharts', 'jqueryui'], function($) {
                 plotBorderWidth: 1                                
             },
             title: {
-                text: '',
+                text: ''
             },
             xAxis: {
                 type: 'datetime',
