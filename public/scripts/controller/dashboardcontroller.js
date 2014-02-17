@@ -12,7 +12,7 @@ define([
     , 'views/githubgraph'
     , 'views/weightgraph'
     , 'views/productivitygraph'
-    , 'views/energygraph',
+    , 'views/energygraph'
     , 'views/caloriegraph'
 ], function($, DataGetter, apicalls) {
    
